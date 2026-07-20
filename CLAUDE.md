@@ -7,6 +7,8 @@
 - `data.js` — PATTERNS(말틀 10개) + SENTENCES(50문장) + PROFILES. 문장 수정은 여기서만
 - `audio/` — sNN_normal.mp3(보통), sNN_slow.mp3(느리게) — Edge TTS로 생성
 - `tools/generate_audio.py` — 음원 일괄 생성 (`pip install edge-tts` 필요, 이미 있는 파일은 건너뜀)
+- `tools/generate_icons.py` — 홈 화면 아이콘 생성 (임시 아이콘, Amy가 캐릭터 이미지 주면 img/icon-*.png 교체)
+- `manifest.json` / `sw.js` — PWA 설정 + 서비스워커 (안드로이드 "홈 화면에 추가" 네이티브 프롬프트, 오프라인 음원 재생)
 - `문장목록.md` — 검토용 문장 목록 (data.js 수정 시 함께 갱신)
 - `배포방법.md` — GitHub Pages 배포 절차
 
@@ -27,6 +29,13 @@
 
 ## 검토된 대안 (채택 안 함)
 - PWA 홈 화면 추가 + 웹 푸시로 아침 알림: 기술적으로 가능하나 특정 시각(오전 10시) 발송에는 결국 무료 서버 트리거가 필요해 카톡 알림과 복잡도가 동일함 → 카톡 경로 하나로 확정
+
+## 홈 화면 추가 (PWA)
+- 안드로이드: 화면 하단 배너의 "추가하기" 버튼이 진짜 네이티브 설치 프롬프트를 띄움 (`beforeinstallprompt` 캡처)
+- 아이폰(사파리): iOS는 자동 설치를 막아놔서 버튼 대신 "공유 → 홈 화면에 추가" 3단계 안내 팝업을 보여줌 (`showIOSInstallGuide()`)
+- 배너는 이미 설치됐거나(`display-mode: standalone`) 사용자가 닫기(✕)를 누르면 다시 안 뜸 (localStorage `travelEng_installDismissed`)
+- `sw.js`가 음원을 오프라인 캐싱함(한 번 들은 문장은 와이파이 없어도 재생) — 앱 화면(html/css/js)은 항상 최신을 우선 받아오고 오프라인일 때만 캐시 사용
+- app.js/style.css를 고쳤는데 배포 후 반영이 안 되면 `sw.js`의 `CACHE_NAME` 숫자를 올릴 것 (예: v1 → v2)
 
 ## 커리큘럼 분량 (2026-07-20 결정)
 - 하루 3문장씩 배우면 50문장은 약 17일이면 다 배움. 그 이후엔 새 문장 없이 간격 반복 복습만 영원히 반복됨(자유 복습으로 보충)

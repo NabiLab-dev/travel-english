@@ -519,5 +519,69 @@ function showBrowse() {
   });
 }
 
+/* ---------- 홈 화면에 추가 ---------- */
+let deferredInstallPrompt = null;
+const INSTALL_DISMISS_KEY = "travelEng_installDismissed";
+
+function isStandaloneMode() {
+  return window.navigator.standalone === true || window.matchMedia("(display-mode: standalone)").matches;
+}
+function isIOS() {
+  return /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
+}
+function renderInstallBanner() {
+  const bar = document.getElementById("install-banner");
+  if (!bar) return;
+  if (isStandaloneMode() || localStorage.getItem(INSTALL_DISMISS_KEY) === "1" || (!isIOS() && !deferredInstallPrompt)) {
+    bar.style.display = "none";
+    document.body.classList.remove("has-install-banner");
+    return;
+  }
+  bar.style.display = "flex";
+  document.body.classList.add("has-install-banner");
+  bar.innerHTML =
+    '<span class="install-text">📲 홈 화면에 추가하면 앱처럼 바로 쓸 수 있어요</span>' +
+    '<button class="install-btn" id="btn-install-go">추가하기</button>' +
+    '<button class="install-close" id="btn-install-close">✕</button>';
+  document.getElementById("btn-install-close").onclick = function () {
+    localStorage.setItem(INSTALL_DISMISS_KEY, "1");
+    bar.style.display = "none";
+    document.body.classList.remove("has-install-banner");
+  };
+  document.getElementById("btn-install-go").onclick = function () {
+    if (isIOS()) { showIOSInstallGuide(); return; }
+    if (!deferredInstallPrompt) return;
+    deferredInstallPrompt.prompt();
+    deferredInstallPrompt.userChoice.then(function () { deferredInstallPrompt = null; renderInstallBanner(); });
+  };
+}
+function showIOSInstallGuide() {
+  const overlay = document.createElement("div");
+  overlay.className = "ios-guide-overlay";
+  overlay.innerHTML =
+    '<div class="ios-guide-card">' +
+    '<div class="ios-guide-title">📲 홈 화면에 추가하는 방법</div>' +
+    '<div class="ios-guide-step"><span class="num">1</span> 화면 아래(또는 위) <b>공유 버튼 ⬆️</b>을 눌러요</div>' +
+    '<div class="ios-guide-step"><span class="num">2</span> 아래로 내려서 <b>"홈 화면에 추가"</b>를 찾아 눌러요</div>' +
+    '<div class="ios-guide-step"><span class="num">3</span> 오른쪽 위 <b>"추가"</b>를 누르면 끝!</div>' +
+    '<button class="big-btn" id="btn-guide-close">확인했어요</button>' +
+    "</div>";
+  document.body.appendChild(overlay);
+  document.getElementById("btn-guide-close").onclick = function () { overlay.remove(); };
+}
+window.addEventListener("beforeinstallprompt", function (e) {
+  e.preventDefault();
+  deferredInstallPrompt = e;
+  renderInstallBanner();
+});
+window.addEventListener("appinstalled", function () {
+  localStorage.setItem(INSTALL_DISMISS_KEY, "1");
+  renderInstallBanner();
+});
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function () { navigator.serviceWorker.register("sw.js").catch(function () {}); });
+}
+
 /* ---------- 시작 ---------- */
 showProfileSelect();
+renderInstallBanner();

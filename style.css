@@ -26,7 +26,8 @@ body {
   line-height: 1.5;
 }
 
-#app { max-width: 480px; margin: 0 auto; padding: 20px 18px 40px; }
+#app { max-width: 480px; margin: 0 auto; padding: 20px 18px 40px; transition: padding-bottom 0.2s; }
+body.has-install-banner #app { padding-bottom: 100px; }
 
 button {
   font-family: inherit;
@@ -260,3 +261,39 @@ button:active { transform: scale(0.97); }
 .filter-btn.on { background: var(--accent); color: #fff; }
 
 .footer-note { text-align: center; color: #B7A896; font-size: 0.85rem; margin-top: 30px; }
+
+/* ---------- 홈 화면에 추가 배너 ---------- */
+.install-banner {
+  position: fixed; left: 0; right: 0; bottom: 0;
+  display: flex; align-items: center; gap: 10px;
+  background: var(--ink); color: #fff;
+  padding: 12px 14px;
+  padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  z-index: 100;
+  box-shadow: 0 -4px 14px rgba(0,0,0,0.15);
+}
+.install-banner .install-text { flex: 1; font-size: 0.92rem; font-weight: 700; line-height: 1.35; }
+.install-banner .install-btn {
+  background: var(--accent); color: #fff; font-weight: 800;
+  padding: 10px 16px; border-radius: 12px; white-space: nowrap; font-size: 0.95rem;
+}
+.install-banner .install-close { color: rgba(255,255,255,0.6); font-size: 1.1rem; padding: 6px; }
+
+.ios-guide-overlay {
+  position: fixed; inset: 0; background: rgba(61,50,41,0.55);
+  display: flex; align-items: flex-end; justify-content: center;
+  z-index: 200;
+}
+.ios-guide-card {
+  width: 100%; max-width: 480px;
+  background: var(--card); border-radius: 24px 24px 0 0;
+  padding: 26px 22px calc(26px + env(safe-area-inset-bottom));
+  animation: fadeIn 0.2s ease;
+}
+.ios-guide-title { font-size: 1.25rem; font-weight: 900; margin-bottom: 18px; text-align: center; }
+.ios-guide-step { display: flex; align-items: center; gap: 12px; font-size: 1.05rem; margin-bottom: 14px; line-height: 1.4; }
+.ios-guide-step .num {
+  flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%;
+  background: var(--accent-soft); color: var(--accent-dark); font-weight: 900;
+  display: flex; align-items: center; justify-content: center; font-size: 0.95rem;
+}
