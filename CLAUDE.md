@@ -1,6 +1,17 @@
 # 여행영어 프로젝트 지침
 
-장년층(부모님)용 여행영어 50문장 반복학습 웹앱. 서버·API 없이 정적 파일만으로 동작.
+장년층용 여행영어 50문장 반복학습 웹앱. 서버·API 없이 정적 파일만으로 동작.
+
+## ⚠️ 두 개의 버전이 있습니다 (수정 시 주의)
+| 폴더 | 용도 | 저장소 / 주소 |
+|---|---|---|
+| `여행영어` (이 폴더) | **시어머님 문숙님 전용** — 개인화된 시작화면, 1인용 | [travel-english](https://github.com/NabiLab-dev/travel-english) · https://nabilab-dev.github.io/travel-english/ |
+| `여행영어-배포용` | **공유용** — 사용자가 이름 직접 편집(최대 3명), 개인정보 없음 | [travel-english-app](https://github.com/NabiLab-dev/travel-english-app) · https://nabilab-dev.github.io/travel-english-app/ |
+
+- 두 폴더는 **각각 독립된 git 저장소**입니다. 문장·음원·학습로직 등 공통 부분을 고치면 **양쪽 모두**에 반영해야 합니다
+- 서로 다른 부분: `data.js`의 PROFILES/OWNER, `app.js`의 `showProfileSelect()`(+공유용의 `showProfileEdit()`), `index.html`/`manifest.json`의 제목, `style.css`의 시작화면 관련 부분
+- **공유용에는 개인정보(문숙/최윤주/Amy 이름, CLAUDE.md, CHANGELOG.md)를 절대 넣지 말 것.** 커밋 전 grep으로 확인
+- 개인용 시작화면 문구·이름은 `data.js`의 `OWNER` 객체에서 수정. 어머님 캐릭터 사진은 `img/munsook.png` (없으면 이모지로 자동 대체)
 
 ## 구조
 - `index.html` / `style.css` / `app.js` — 앱 본체 (바닐라 JS, 빌드 없음)

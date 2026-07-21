@@ -76,32 +76,42 @@ function sentenceEnHtml(s) {
   }
   return esc(s.en);
 }
+// 캐릭터 이미지(img/munsook.png)가 없으면 이모지로 자동 대체됩니다.
+window.charImgFail = function (el) {
+  const span = document.createElement("span");
+  span.className = "char-emoji";
+  span.textContent = OWNER.emoji;
+  el.replaceWith(span);
+};
 function characterHtml(mood) {
-  // Amy가 캐릭터 이미지를 주면 img/character-{mood}.png 로 교체됩니다.
-  const map = { hello: "🐻", cheer: "💪🐻", happy: "🎉🐻", think: "🤔🐻" };
-  return '<div class="character">' + (map[mood] || "🐻") + "</div>";
+  const deco = { hello: "", cheer: "💪", happy: "🎉", think: "🤔" };
+  const badge = deco[mood] ? '<span class="char-badge">' + deco[mood] + "</span>" : "";
+  return '<div class="character owner-char">' +
+    '<img src="' + OWNER.photo + '" alt="" onerror="charImgFail(this)">' + badge + "</div>";
 }
 
-/* ---------- 1. 프로필 선택 ---------- */
+/* ---------- 1. 시작 화면 (문숙님 전용) ---------- */
 function showProfileSelect() {
   currentProfile = null;
-  let html = characterHtml("hello");
-  html += '<div class="hello-title">우리집 여행영어</div>';
-  html += '<div class="hello-sub">누가 공부하러 왔나요?</div>';
-  PROFILES.forEach(function (p) {
-    html += '<button class="profile-btn" data-pid="' + p.id + '">' +
-      '<span class="avatar">' + p.emoji + "</span>" + esc(p.name) +
-      '<span class="arrow">›</span></button>';
-  });
-  html += '<div class="footer-note">하루 10분, 여행에서 바로 쓰는 영어 50문장</div>';
+  const p = PROFILES[0];
+  const st = loadState(p.id);
+  const learned = Object.keys(st.progress).length;
+
+  let html = '<div class="welcome-deco">✈️ ☁️ 🧳</div>';
+  html += characterHtml("hello");
+  html += '<div class="hello-title">' + esc(OWNER.name) + "님의<br>여행회화 ✈️</div>";
+  html += '<div class="hello-sub">비행기 타기 전에<br>하루 10분씩 같이 해봐요! 😊</div>';
+  html += '<button class="big-btn welcome-start" id="btn-enter">' +
+    (learned > 0 ? "▶ 오늘도 공부하러 가기" : "▶ 첫 공부 시작하기") + "</button>";
+  if (learned > 0) {
+    html += '<div class="welcome-progress">지금까지 <b>' + learned + "문장</b> 배우셨어요 👏</div>";
+  }
+  html += '<div class="gift-note">💝 ' + esc(OWNER.gift) + "</div>";
   render(html);
-  document.querySelectorAll(".profile-btn").forEach(function (btn) {
-    btn.onclick = function () {
-      const p = PROFILES.find(function (x) { return x.id === btn.dataset.pid; });
-      currentProfile = { id: p.id, name: p.name, emoji: p.emoji, state: loadState(p.id) };
-      showDashboard();
-    };
-  });
+  document.getElementById("btn-enter").onclick = function () {
+    currentProfile = { id: p.id, name: p.name, emoji: p.emoji, state: loadState(p.id) };
+    showDashboard();
+  };
 }
 
 /* ---------- 학습 대상 계산 ---------- */
@@ -153,7 +163,7 @@ function showDashboard() {
     dots += '<div class="dot' + cls + '">' + dayNames[i] + "</div>";
   }
 
-  let html = '<div class="top-bar"><button class="back-btn" id="btn-switch">👥 사용자 변경</button></div>';
+  let html = '<div class="top-bar"><button class="back-btn" id="btn-switch">‹ 처음으로</button></div>';
   html += characterHtml(doneToday ? "happy" : "cheer");
   html += '<div class="greet">' + esc(currentProfile.name) + "님, 안녕하세요!</div>";
   html += '<div class="greet-sub">' + (doneToday ? "오늘 공부 완료! 정말 잘하셨어요 👏" : "오늘도 가볍게 시작해 볼까요?") + "</div>";

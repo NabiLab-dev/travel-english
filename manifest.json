@@ -1,7 +1,7 @@
 {
-  "name": "우리집 여행영어",
-  "short_name": "여행영어",
-  "description": "여행에서 바로 쓰는 영어 50문장, 하루 10분 반복학습",
+  "name": "문숙님의 여행회화",
+  "short_name": "문숙님 여행영어",
+  "description": "비행기 타기 전에 하루 10분, 여행에서 바로 쓰는 영어 50문장",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
