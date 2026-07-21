@@ -97,8 +97,7 @@ function showProfileSelect() {
   const st = loadState(p.id);
   const learned = Object.keys(st.progress).length;
 
-  let html = '<div class="welcome-deco">✈️ ☁️ 🧳</div>';
-  html += characterHtml("hello");
+  let html = characterHtml("hello");
   html += '<div class="hello-title">' + esc(OWNER.name) + "님의<br>여행회화 ✈️</div>";
   html += '<div class="hello-sub">비행기 타기 전에<br>하루 10분씩 같이 해봐요! 😊</div>';
   html += '<button class="big-btn welcome-start" id="btn-enter">' +
