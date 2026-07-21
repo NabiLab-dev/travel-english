@@ -84,11 +84,9 @@ window.charImgFail = function (el) {
   el.replaceWith(span);
 };
 function characterHtml(mood, size) {
-  const deco = { hello: "", cheer: "💪", happy: "🎉", think: "🤔" };
-  const badge = deco[mood] ? '<span class="char-badge">' + deco[mood] + "</span>" : "";
   const cls = "character owner-char" + (size === "small" ? " small" : "");
   return '<div class="' + cls + '">' +
-    '<img src="' + OWNER.photo + '" alt="" onerror="charImgFail(this)">' + badge + "</div>";
+    '<img src="' + OWNER.photo + '" alt="" onerror="charImgFail(this)"></div>';
 }
 
 /* ---------- 1. 시작 화면 (문숙님 전용) ---------- */

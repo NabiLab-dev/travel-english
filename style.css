@@ -96,11 +96,6 @@ button:active { transform: scale(0.97); }
   display: flex; align-items: center; justify-content: center;
   background: var(--accent-soft);
 }
-.owner-char .char-badge {
-  position: absolute; right: calc(50% - 88px); bottom: 6px;
-  font-size: 2.1rem; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.15));
-}
-.owner-char.small .char-badge { right: calc(50% - 36px); font-size: 1.5rem; }
 
 /* 시작 화면 꾸미기 */
 .welcome-start { margin-top: 22px; font-size: 1.3rem; }
