@@ -86,10 +86,10 @@ button:active { transform: scale(0.97); }
 /* 어머님 캐릭터 (동그란 사진) */
 .owner-char { position: relative; display: flex; justify-content: center; margin: 4px 0 16px; }
 .owner-char img {
-  width: 132px; height: 132px; border-radius: 50%;
-  object-fit: cover; background: var(--accent-soft);
-  border: 4px solid #fff; box-shadow: 0 6px 18px rgba(120,80,40,0.18);
+  height: 210px; width: auto; object-fit: contain;
+  filter: drop-shadow(0 10px 14px rgba(120,80,40,0.22));
 }
+.owner-char.small img { height: 84px; }
 .owner-char .char-emoji {
   font-size: 5.2rem; line-height: 1.15;
   width: 132px; height: 132px; border-radius: 50%;
@@ -97,9 +97,10 @@ button:active { transform: scale(0.97); }
   background: var(--accent-soft);
 }
 .owner-char .char-badge {
-  position: absolute; right: calc(50% - 78px); bottom: -2px;
-  font-size: 1.9rem; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.15));
+  position: absolute; right: calc(50% - 88px); bottom: 6px;
+  font-size: 2.1rem; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.15));
 }
+.owner-char.small .char-badge { right: calc(50% - 36px); font-size: 1.5rem; }
 
 /* 시작 화면 꾸미기 */
 .welcome-start { margin-top: 22px; font-size: 1.3rem; }

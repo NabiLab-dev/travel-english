@@ -83,10 +83,11 @@ window.charImgFail = function (el) {
   span.textContent = OWNER.emoji;
   el.replaceWith(span);
 };
-function characterHtml(mood) {
+function characterHtml(mood, size) {
   const deco = { hello: "", cheer: "💪", happy: "🎉", think: "🤔" };
   const badge = deco[mood] ? '<span class="char-badge">' + deco[mood] + "</span>" : "";
-  return '<div class="character owner-char">' +
+  const cls = "character owner-char" + (size === "small" ? " small" : "");
+  return '<div class="' + cls + '">' +
     '<img src="' + OWNER.photo + '" alt="" onerror="charImgFail(this)">' + badge + "</div>";
 }
 
@@ -163,7 +164,7 @@ function showDashboard() {
   }
 
   let html = '<div class="top-bar"><button class="back-btn" id="btn-switch">‹ 처음으로</button></div>';
-  html += characterHtml(doneToday ? "happy" : "cheer");
+  html += characterHtml(doneToday ? "happy" : "cheer", "small");
   html += '<div class="greet">' + esc(currentProfile.name) + "님, 안녕하세요!</div>";
   html += '<div class="greet-sub">' + (doneToday ? "오늘 공부 완료! 정말 잘하셨어요 👏" : "오늘도 가볍게 시작해 볼까요?") + "</div>";
 
