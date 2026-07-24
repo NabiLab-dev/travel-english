@@ -3,10 +3,14 @@
 장년층용 여행영어 50문장 반복학습 웹앱. 서버·API 없이 정적 파일만으로 동작.
 
 ## ⚠️ 두 개의 버전이 있습니다 (수정 시 주의)
+둘 다 `Amy/claude code/` 아래에 있고, 폴더명은 GitHub 저장소명과 동일하게 맞춰뒀습니다.
+
 | 폴더 | 용도 | 저장소 / 주소 |
 |---|---|---|
-| `여행영어` (이 폴더) | **시어머님 문숙님 전용** — 개인화된 시작화면, 1인용 | [travel-english](https://github.com/NabiLab-dev/travel-english) · https://nabilab-dev.github.io/travel-english/ |
-| `여행영어-배포용` | **공유용** — 사용자가 이름 직접 편집(최대 3명), 개인정보 없음 | [travel-english-app](https://github.com/NabiLab-dev/travel-english-app) · https://nabilab-dev.github.io/travel-english-app/ |
+| `travel-english` (이 폴더) | **시어머님 문숙님 전용** — 개인화된 시작화면, 1인용, 캐릭터는 `img/munsook.png` | [travel-english](https://github.com/NabiLab-dev/travel-english) · https://nabilab-dev.github.io/travel-english/ |
+| `travel-english-app` | **공유용** — 사용자가 이름 직접 편집(최대 3명), 캐릭터는 곰돌이(`img/goom.png`), 개인정보 없음 | [travel-english-app](https://github.com/NabiLab-dev/travel-english-app) · https://nabilab-dev.github.io/travel-english-app/ |
+
+**곰돌이(goom.png) 캐릭터는 `travel-english-app`(공유용) 전용입니다. `travel-english`(개인용)에는 절대 적용하지 말 것 — 개인용은 `munsook.png`만 씁니다.**
 
 - 두 폴더는 **각각 독립된 git 저장소**입니다. 문장·음원·학습로직 등 공통 부분을 고치면 **양쪽 모두**에 반영해야 합니다
 - 서로 다른 부분: `data.js`의 PROFILES/OWNER, `app.js`의 `showProfileSelect()`(+공유용의 `showProfileEdit()`), `index.html`/`manifest.json`의 제목, `style.css`의 시작화면 관련 부분

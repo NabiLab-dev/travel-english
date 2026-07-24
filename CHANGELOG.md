@@ -1,5 +1,11 @@
 # 여행영어 작업 기록
 
+## 2026-07-21 — 폴더명을 저장소명과 통일, 배포용 캐릭터를 곰돌이로 교체
+- 로컬 폴더명을 GitHub 저장소명과 동일하게 정리: `여행영어` → `travel-english`, `여행영어-배포용` → `travel-english-app` (둘 다 `Amy/claude code/` 아래로)
+- `.claude/launch.json` 미리보기 경로도 새 폴더명으로 수정
+- 공유용(`travel-english-app`)에만 곰돌이 커플 캐릭터(`img/goom.png`) 적용 — 이모지 곰 대신 실제 일러스트로 교체, 시작·완료화면은 크게(150px)/대시보드는 작게(74px). **개인용(`travel-english`)에는 적용하지 않음 — 계속 어머님 캐릭터(munsook.png)만 사용**
+- 공유용 앱 아이콘/파비콘을 여행가방 placeholder에서 `travel.png`(말풍선+비행기 디자인) 기반으로 전량 교체 (icon-192, icon-512, apple-touch-icon, favicon)
+
 ## 2026-07-20 — 프로젝트 시작, v1 완성
 - 기술 방향 확정: 바닐라 HTML/CSS/JS + GitHub Pages(무료), 런타임 API 없음
 - 여행영어 50문장 초안 작성 (5주 과정: 기본패턴 → 공항 → 호텔·교통 → 식당·쇼핑 → 문제해결·긴급)
